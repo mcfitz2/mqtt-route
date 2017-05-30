@@ -1,15 +1,15 @@
-MQTTRouter = function(client) {
+MQTTRoute = function(client) {
     var self = this;
     self.routes = {};
     self.client = client;
 };
-MQTTRouter.prototype.route = function(regex, handler) {
+MQTTRoute.prototype.route = function(regex, handler) {
     var self = this;
     self.routes[regex.replace("+", "[^/]+").replace("#", ".+")] = handler;
     console.log("subscribing to", regex)
     self.client.subscribe(regex);
 };
-MQTTRouter.prototype.init = function() {
+MQTTRoute.prototype.init = function() {
     var self = this;
     self.client.on("message", function(topic, message) {
         var matches = Object.keys(self.routes).filter((regex) => {
@@ -20,4 +20,4 @@ MQTTRouter.prototype.init = function() {
         }
     });
 }
-module.exports = MQTTRouter;
+module.exports = MQTTRoute;

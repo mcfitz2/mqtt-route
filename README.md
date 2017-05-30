@@ -1,2 +1,2 @@
-# mqtt-router
+# mqtt-route
 Simple topic router for MQTT.js
